@@ -1,29 +1,32 @@
 from itertools import count
 import random
+import time
 
 global taisyou,kesson,ans
 
 count=0
 
 while True:
-    taisyou = ["M","I","Z","U","S","E","N","A"]
-    taisyou2 = taisyou
-    kesson = random.choices(taisyou,k=2)
-    t_k_and = set(taisyou) & set(kesson)
+    taisyou = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+    taisyou2 = random.choices(taisyou,k=10)
+    taisyou3 = taisyou2
+
+    kesson = random.choices(taisyou2,k=2)
+    t_k_and = set(taisyou2) & set(kesson)
     t_k_and = list(t_k_and)
 
     
 
-    random.shuffle(taisyou)
+    random.shuffle(taisyou2)
 
     print("対象文字:")
-    print(taisyou)
+    print(taisyou2)
 
-    taisyou2.remove(t_k_and[0])
-    taisyou2.remove(t_k_and[1])
+    taisyou3.remove(t_k_and[0])
+    taisyou3.remove(t_k_and[1])
 
     print("表示文字:")
-    print(taisyou2)
+    print(taisyou3)
 
     ans = input("欠損文字はいくつあるでしょうか？")
     if ans=="2":
