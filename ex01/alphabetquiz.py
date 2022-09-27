@@ -8,7 +8,7 @@ count=0
 
 while True:
     taisyou = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-    taisyou2 = random.choices(taisyou,k=10)
+    taisyou2 = random.choices(taisyou,k=8)
     taisyou3 = taisyou2
 
     kesson = random.choices(taisyou2,k=2)
