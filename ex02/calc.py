@@ -1,3 +1,4 @@
+from cgitb import reset
 import numbers
 import tkinter as tk
 import tkinter.messagebox as tkm
@@ -14,27 +15,55 @@ def equal_click(event):
     entry.delete(0, tk.END)
     entry.insert(tk.END, res)
 
+def enter_bg(event):
+    event.widget['bg'] = '#FDF5E6'
+
+def leave_bg(event):
+    event.widget['bg'] = '#FFFFFF'
+
+#式をリセット
+def reset(event):
+    entry.delete(0, tk.END)
+
+
 root = tk.Tk()
-root.title("練習問題1")
-root.geometry("300x500")
+root.title("電卓")
+root.geometry("400x600")
 
 entry = tk.Entry(root, width=10, font=(", 40"), justify="right") # 練習4
 entry.grid(row=0, column=0, columnspan=3)
 
 r,c = 1,0
-numbers = list(range(9,-1,-1))
-operators = ["+"]
-for i,num in enumerate(numbers+operators,1):
-    button = tk.Button(root, text=f"{num}",font=("",30),width="4",height="2")
+numbers = [
+        7,8,9,"+",
+        4,5,6,"-",
+        1,2,3,"×",
+        "C",0,"=","÷"
+]
+#list(range(9,-1,-1))
+#operators = ["+"]
+for i,num in enumerate(numbers,1):
+    button = tk.Button(root,bg="#FFFFFF" ,text=f"{num}",font=("",30),width="4",height="1")
     button.bind("<1>",button_click)
+
+    if num=="=":
+        button = tk.Button(root, text=f"=",bg="#FFFFFF",font=("",30),width="4",height="1")
+        button.bind("<1>",equal_click)
+
+    if num=="C":
+        button = tk.Button(root, text=f"C",bg="#FFFFFF",font=("",30),width="4",height="1")
+        button.bind("<1>",reset)
+
+    #ボタンの色変える
+    button.bind("<Enter>", enter_bg)
+    button.bind("<Leave>", leave_bg)
+
+    
+    
     button.grid(row=r, column=c)
     c += 1
-    if i%3 == 0:
+    if i%4 == 0:
         r += 1
         c = 0
-
-button = tk.Button(root, text=f"=",font=("",30),width="4",height="2")
-button.bind("<1>",equal_click)
-button.grid(row=r, column=c)
 
 root.mainloop()
