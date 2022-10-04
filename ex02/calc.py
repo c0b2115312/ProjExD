@@ -15,6 +15,7 @@ def equal_click(event):
     entry.delete(0, tk.END)
     entry.insert(tk.END, res)
 
+#マウスオーバー色
 def enter_bg(event):
     event.widget['bg'] = '#FDF5E6'
 
@@ -24,6 +25,15 @@ def leave_bg(event):
 #式をリセット
 def reset(event):
     entry.delete(0, tk.END)
+
+#掛け算の文字の置き換えをやろうとした
+#def kakeru(event):
+    #eqn = entry.get()
+    #entry.replace("×","*")
+    #res = eval(eqn)
+    #entry.delete(0, tk.END)
+    #entry.insert(tk.END, res)
+
 
 
 root = tk.Tk()
@@ -37,11 +47,10 @@ r,c = 1,0
 numbers = [
         7,8,9,"+",
         4,5,6,"-",
-        1,2,3,"×",
-        "C",0,"=","÷"
+        1,2,3,"*",
+        "C",0,"=","/"
 ]
-#list(range(9,-1,-1))
-#operators = ["+"]
+
 for i,num in enumerate(numbers,1):
     button = tk.Button(root,bg="#FFFFFF" ,text=f"{num}",font=("",30),width="4",height="1")
     button.bind("<1>",button_click)
@@ -53,6 +62,12 @@ for i,num in enumerate(numbers,1):
     if num=="C":
         button = tk.Button(root, text=f"C",bg="#FFFFFF",font=("",30),width="4",height="1")
         button.bind("<1>",reset)
+
+    #掛け算の置き換えをやろうとした
+    #if num=="×":
+        #button = tk.Button(root, text=f"×",bg="#FFFFFF",font=("",30),width="4",height="1")
+        #button.bind("<1>",kakeru)
+
 
     #ボタンの色変える
     button.bind("<Enter>", enter_bg)
