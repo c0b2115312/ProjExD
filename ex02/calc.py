@@ -1,8 +1,25 @@
 import tkinter as tk
 import tkinter.messagebox as tkm
 
-cal = tk.Tk()
-cal.title("練習問題1")
-cal.geometry("500x200")
+def button_click(event):
+    btn = event.widget
+    num = int(btn["text"])
+    tkm.showinfo(f"{num}",f"{num}ボタンが押されました")
 
-cal.mainloop()
+root = tk.Tk()
+root.title("練習問題1")
+root.geometry("300x500")
+
+r,c = 0,0
+
+for i,num in enumerate(range(9,-1,-1),1):
+    button = tk.Button(root, text=f"{num}",font=("",30),width="4",height="2")
+    button.bind("<1>",button_click)
+    button.grid(row=r, column=c)
+    c += 1
+    if i%3 == 0:
+        r += 1
+        c = 0
+
+
+root.mainloop()
