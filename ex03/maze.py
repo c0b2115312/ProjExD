@@ -1,6 +1,5 @@
 import tkinter as tk
 import tkinter.messagebox as tkm
-from tokenize import maybe
 import maze_maker as mm
 
 def key_down(event):
@@ -66,8 +65,6 @@ if __name__ == "__main__":
     root.bind("<KeyRelease>",key_up)
     
     count_up()
-    
     main_proc() 
 
-    
     root.mainloop()
