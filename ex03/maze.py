@@ -34,10 +34,32 @@ def main_proc():
     
     canv.coords("tori",cx,cy)
     root.after(100, main_proc)
+
+def key_down(event):
+    global jid
+    if jid != None:
+        root.after_cancel(jid)
+        jid = None
+        return
+    key = event.keysym
+    jid = root.after(1000,count_up)
+
+def count_up():
+    global tmr,jid
+    tmr+=1
+    label["text"] = tmr
+    jid = root.after(1000,count_up)
+
     
 if __name__ == "__main__":
     root=tk.Tk()
     root.title("迷えるこうかとん")
+    label = tk.Label(root,font=("",80))
+    label.pack()
+
+    tmr = 0
+    jid = None
+    root.bind("<KeyPress>",key_down)
 
     canv = tk.Canvas(
         root,
@@ -50,7 +72,8 @@ if __name__ == "__main__":
     maze_lst = mm.make_maze(15,9)
     mm.show_maze(canv,maze_lst)
 
-    tori = tk.PhotoImage(file="fig/8.png")
+    tori = tk.PhotoImage(file="fig/gomibukuro_yellow.png")
+    tori = tori.subsample(8)
     mx,my=1,1
     cx,cy=300,400
     canv.create_image(cx,cy,image=tori,tag="tori")
