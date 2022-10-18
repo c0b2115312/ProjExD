@@ -4,6 +4,9 @@ import time
 
 global taisyou,kesson,ans
 
+def alphabet_list():
+    [chr(ord("a")+i) for i in range(26)]
+
 count=0
 
 while True:

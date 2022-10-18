@@ -3,7 +3,7 @@ import tkinter as tk
 import tkinter.messagebox as tkm
 
 def key_down(event):
-    global jid
+    global key, jid
     if jid != None:
         root.after_cancel(jid)
         jid = None
