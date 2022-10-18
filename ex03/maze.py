@@ -10,7 +10,7 @@ def key_up(event):
     global key
     key = ""
 
-def count_up():
+def count_up(): #タイマーのカウント・初期値0から1000ミリ秒でカウント
     global tmr
     tmr+=1
     label["text"] = tmr
@@ -20,13 +20,13 @@ def main_proc():
     global mx,my
     global cx,cy
 
-    if key=="Up" and maze_lst[my-1][mx]!=1:
+    if key=="Up" and maze_lst[my-1][mx]!=1: #上キーで上に1マス動く
         my-=1
-    elif key=="Down" and maze_lst[my+1][mx]!=1:
+    elif key=="Down" and maze_lst[my+1][mx]!=18: #下キーで下に1マス動く
         my+=1
-    elif key=="Left" and maze_lst[my][mx-1]!=1:
+    elif key=="Left" and maze_lst[my][mx-1]!=1: #左キーで左に1マス動く
         mx-=1
-    elif key=="Right" and maze_lst[my][mx+1]!=1:
+    elif key=="Right" and maze_lst[my][mx+1]!=1: #右キーで右に1マス動く
         mx+=1
 
     if maze_lst[my][mx] != 1:
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     canv.create_image(cx,cy,image=gomi,tag="gomi")
 
     key=""
-    tmr = 0
+    tmr = 0 #タイマーの初期値
 
     root.bind("<KeyPress>",key_down)
     root.bind("<KeyRelease>",key_up)
