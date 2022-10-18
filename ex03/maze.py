@@ -3,63 +3,44 @@ import tkinter.messagebox as tkm
 from tokenize import maybe
 import maze_maker as mm
 
-
-global key
-
 def key_down(event):
     global key
     key = event.keysym
-    #tkm.showinfo("キー押下",f"{key}キーが押されました")
 
 def key_up(event):
     global key
     key = ""
-    #tkm.showinfo("キー押下",f"{key}キーが押されました")
+
+def count_up():
+    global tmr
+    tmr+=1
+    label["text"] = tmr
+    root.after(1000,count_up)
 
 def main_proc():
     global mx,my
     global cx,cy
 
-    if key=="Up" and maze_lst[my-1][mx]==0:
+    if key=="Up" and maze_lst[my-1][mx]!=1:
         my-=1
-    elif key=="Down" and maze_lst[my+1][mx]==0:
+    elif key=="Down" and maze_lst[my+1][mx]!=1:
         my+=1
-    elif key=="Left" and maze_lst[my][mx-1]==0:
+    elif key=="Left" and maze_lst[my][mx-1]!=1:
         mx-=1
-    elif key=="Right" and maze_lst[my][mx+1]==0:
+    elif key=="Right" and maze_lst[my][mx+1]!=1:
         mx+=1
 
-    if maze_lst[my][mx] == 0:
+    if maze_lst[my][mx] != 1:
         cx,cy=mx*100+50,my*100+50
     
-    canv.coords("tori",cx,cy)
+    canv.coords("gomi",cx,cy)
     root.after(100, main_proc)
-
-def key_down(event):
-    global jid
-    if jid != None:
-        root.after_cancel(jid)
-        jid = None
-        return
-    key = event.keysym
-    jid = root.after(1000,count_up)
-
-def count_up():
-    global tmr,jid
-    tmr+=1
-    label["text"] = tmr
-    jid = root.after(1000,count_up)
-
     
 if __name__ == "__main__":
     root=tk.Tk()
-    root.title("迷えるこうかとん")
+    root.title("ごみを捨てよう")
     label = tk.Label(root,font=("",80))
     label.pack()
-
-    tmr = 0
-    jid = None
-    root.bind("<KeyPress>",key_down)
 
     canv = tk.Canvas(
         root,
@@ -72,16 +53,19 @@ if __name__ == "__main__":
     maze_lst = mm.make_maze(15,9)
     mm.show_maze(canv,maze_lst)
 
-    tori = tk.PhotoImage(file="fig/gomibukuro_yellow.png")
-    tori = tori.subsample(8)
+    gomi = tk.PhotoImage(file="fig/gomibukuro_yellow.png")
+    gomi = gomi.subsample(7)
     mx,my=1,1
     cx,cy=300,400
-    canv.create_image(cx,cy,image=tori,tag="tori")
+    canv.create_image(cx,cy,image=gomi,tag="gomi")
 
     key=""
+    tmr = 0
 
     root.bind("<KeyPress>",key_down)
     root.bind("<KeyRelease>",key_up)
+    
+    count_up()
     
     main_proc() 
 
