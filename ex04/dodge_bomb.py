@@ -8,7 +8,6 @@ x,y=randint(0+10,1600-10),randint(0+10,900-10)
 
 a,b=randint(0+10,1600-10),randint(0+10,900-10)
 
-
 def main():
     pg.init()
     pg.display.set_caption("逃げろ!こうかとん")
