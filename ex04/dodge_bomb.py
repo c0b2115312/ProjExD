@@ -19,8 +19,6 @@ def main():
     bg_sfc = pg.transform.rotozoom(bg_sfc,0,1)
     bg_rct = bg_sfc.get_rect()
 
-    
-
     bakuhatsu_sfc = pg.image.load("fig/bakuhatsu.png")
     bakuhatsu_sfc = pg.transform.rotozoom(bakuhatsu_sfc,0,0.5)
     bakuhatsu_rct = bakuhatsu_sfc.get_rect()
@@ -47,10 +45,6 @@ def main():
     vy=5
 
     while(True):
-        #こうかとんの設定
-        
-        
-
         scrn_sfc.blit(bg_sfc,bg_rct)
         scrn_sfc.blit(tori_sfc,tori_rct)
         scrn_sfc.blit(draw_sfc,draw_rct)
@@ -62,7 +56,6 @@ def main():
         if draw_rct.top<0 or draw_rct.bottom>900:
             vy*=-1.05
         
-        
 
         for event in pg.event.get():
             key_lst = pg.key.get_pressed()
@@ -70,7 +63,7 @@ def main():
             if event.type == pg.KEYDOWN:
                 for num in range(10):
                     if num+48 == event.key:
-                        tori_sfc = pg.image.load(f"fig/{num}.png")
+                        tori_sfc = pg.image.load(f"fig/{num}.png")#こうかとんの設定
                         tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
             
                
@@ -84,9 +77,6 @@ def main():
             tori_rct.centerx -= 5
         if key_lst[pg.K_u]:
             scrn_sfc.blit(unchi_sfc,tori_rct)
-        
-        #こうかとん画像変更
-        
         
         if tori_rct.left<0:
             tori_rct.move_ip(+5,0)
