@@ -16,7 +16,6 @@ def main():
 
     #壁紙の設定      
     bg_sfc = pg.image.load("fig/pg_bg.jpg")
-    bg_sfc = pg.transform.rotozoom(bg_sfc,0,1)
     bg_rct = bg_sfc.get_rect()
 
     bakuhatsu_sfc = pg.image.load("fig/bakuhatsu.png")
