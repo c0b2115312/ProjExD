@@ -74,15 +74,15 @@ def main():
                         tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
             
                
-        if key_lst[pg.K_UP]==True:
+        if key_lst[pg.K_UP]:
             tori_rct.centery -= 5
-        if key_lst[pg.K_DOWN]==True:
+        if key_lst[pg.K_DOWN]:
             tori_rct.centery += 5
-        if key_lst[pg.K_RIGHT]==True:
+        if key_lst[pg.K_RIGHT]:
             tori_rct.centerx += 5
-        if key_lst[pg.K_LEFT]==True:
+        if key_lst[pg.K_LEFT]:
             tori_rct.centerx -= 5
-        if key_lst[pg.K_u]==True:
+        if key_lst[pg.K_u]:
             scrn_sfc.blit(unchi_sfc,tori_rct)
         
         #こうかとん画像変更
