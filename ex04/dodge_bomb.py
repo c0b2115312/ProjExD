@@ -67,7 +67,11 @@ def main():
         for event in pg.event.get():
             key_lst = pg.key.get_pressed()
             if event.type == pg.QUIT: return
-                        
+            if event.type == pg.KEYDOWN:
+                for num in range(10):
+                    if num+48 == event.key:
+                        tori_sfc = pg.image.load(f"fig/{num}.png")
+                        tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
             
                
         if key_lst[pg.K_UP]==True:
@@ -82,34 +86,6 @@ def main():
             scrn_sfc.blit(unchi_sfc,tori_rct)
         
         #こうかとん画像変更
-        #イベントとfor文を使うと上手くまとめることができる,event.key
-        if key_lst[pg.K_1]==True:
-            tori_sfc = pg.image.load(f"fig/1.png")
-            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
-        if key_lst[pg.K_2]==True:
-            tori_sfc = pg.image.load(f"fig/2.png")
-            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
-        if key_lst[pg.K_3]==True:
-            tori_sfc = pg.image.load(f"fig/3.png")
-            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
-        if key_lst[pg.K_4]==True:
-            tori_sfc = pg.image.load(f"fig/4.png")
-            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
-        if key_lst[pg.K_5]==True:
-            tori_sfc = pg.image.load(f"fig/5.png")
-            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
-        if key_lst[pg.K_6]==True:
-            tori_sfc = pg.image.load(f"fig/6.png")
-            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
-        if key_lst[pg.K_7]==True:
-            tori_sfc = pg.image.load(f"fig/7.png")
-            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
-        if key_lst[pg.K_8]==True:
-            tori_sfc = pg.image.load(f"fig/8.png")
-            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
-        if key_lst[pg.K_9]==True:
-            tori_sfc = pg.image.load(f"fig/9.png")
-            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
         
         
         if tori_rct.left<0:
