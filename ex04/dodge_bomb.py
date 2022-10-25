@@ -8,19 +8,18 @@ x,y=randint(0+10,1600-10),randint(0+10,900-10)
 
 a,b=randint(0+10,1600-10),randint(0+10,900-10)
 
+
 def main():
     pg.init()
     pg.display.set_caption("逃げろ!こうかとん")
     scrn_sfc = pg.display.set_mode((1600,900))
-        
+
+    #壁紙の設定      
     bg_sfc = pg.image.load("fig/pg_bg.jpg")
     bg_sfc = pg.transform.rotozoom(bg_sfc,0,1)
     bg_rct = bg_sfc.get_rect()
 
-    tori_sfc = pg.image.load("fig/6.png")
-    tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
-    tori_rct = tori_sfc.get_rect()
-    tori_rct.center = 800,450
+    
 
     bakuhatsu_sfc = pg.image.load("fig/bakuhatsu.png")
     bakuhatsu_sfc = pg.transform.rotozoom(bakuhatsu_sfc,0,0.5)
@@ -38,16 +37,23 @@ def main():
     draw_rct = draw_sfc.get_rect()
     draw_rct.center = x, y
 
+    
+    num = 0
+    tori_sfc = pg.image.load(f"fig/{num}.png")
+    tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
+    tori_rct = tori_sfc.get_rect()
+    tori_rct.center = 800,450
     vx=5
     vy=5
 
-    
-
     while(True):
+        #こうかとんの設定
+        
+        
+
         scrn_sfc.blit(bg_sfc,bg_rct)
         scrn_sfc.blit(tori_sfc,tori_rct)
         scrn_sfc.blit(draw_sfc,draw_rct)
-
         
         #爆弾の移動
         draw_rct.move_ip(+vx,+vy)
@@ -55,13 +61,15 @@ def main():
             vx*=-1.05
         if draw_rct.top<0 or draw_rct.bottom>900:
             vy*=-1.05
+        
+        
 
         for event in pg.event.get():
+            key_lst = pg.key.get_pressed()
             if event.type == pg.QUIT: return
-
+                        
             
-        key_lst = pg.key.get_pressed()
-        
+               
         if key_lst[pg.K_UP]==True:
             tori_rct.centery -= 5
         if key_lst[pg.K_DOWN]==True:
@@ -72,6 +80,37 @@ def main():
             tori_rct.centerx -= 5
         if key_lst[pg.K_u]==True:
             scrn_sfc.blit(unchi_sfc,tori_rct)
+        
+        #こうかとん画像変更
+        #イベントとfor文を使うと上手くまとめることができる,event.key
+        if key_lst[pg.K_1]==True:
+            tori_sfc = pg.image.load(f"fig/1.png")
+            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
+        if key_lst[pg.K_2]==True:
+            tori_sfc = pg.image.load(f"fig/2.png")
+            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
+        if key_lst[pg.K_3]==True:
+            tori_sfc = pg.image.load(f"fig/3.png")
+            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
+        if key_lst[pg.K_4]==True:
+            tori_sfc = pg.image.load(f"fig/4.png")
+            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
+        if key_lst[pg.K_5]==True:
+            tori_sfc = pg.image.load(f"fig/5.png")
+            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
+        if key_lst[pg.K_6]==True:
+            tori_sfc = pg.image.load(f"fig/6.png")
+            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
+        if key_lst[pg.K_7]==True:
+            tori_sfc = pg.image.load(f"fig/7.png")
+            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
+        if key_lst[pg.K_8]==True:
+            tori_sfc = pg.image.load(f"fig/8.png")
+            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
+        if key_lst[pg.K_9]==True:
+            tori_sfc = pg.image.load(f"fig/9.png")
+            tori_sfc = pg.transform.rotozoom(tori_sfc,0,2.0)
+        
         
         if tori_rct.left<0:
             tori_rct.move_ip(+5,0)
