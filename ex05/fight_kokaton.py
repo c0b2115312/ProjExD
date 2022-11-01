@@ -1,7 +1,9 @@
+from symbol import test_nocond
 import pygame as pg
 import sys
 from random import randint
 
+#背景の設定
 class Screen:
     def __init__(self,title,wh,bgimg):
         pg.display.set_caption(title) #逃げろ！こうかとん
@@ -13,7 +15,7 @@ class Screen:
     def blit(self):
         self.sfc.blit(self.bgi_sfc,self.bgi_rct)
 
-
+#鳥の設定
 class Bird:
     key_delta = {
         pg.K_UP:    [0, -1],
@@ -42,7 +44,7 @@ class Bird:
                     self.rct.centery-=delta[1]
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct)
 
-
+#爆弾の設定
 class Bomb:
     def __init__(self,img,zoom,vxy,scr:Screen):
         self.sfc=pg.image.load(img) # 空のSurface
@@ -63,7 +65,7 @@ class Bomb:
         self.vy*=tate
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct)
 
-
+#天使の設定
 class Angel:
     def __init__(self,img,zoom,scr:Screen):
         sfc=pg.image.load(img) 
