@@ -64,12 +64,19 @@ class Bomb:
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct)
 
 
-#class Angel:
-    #def __init__(self,img,zoom,xy):
-        #sfc = pg.image.load(img) # "fig/6.png"
-        #self.sfc = pg.transform.rotozoom(sfc, 0, zoom) # 2.0
-        #self.rct = self.sfc.get_rect()
-        #self.rct.center = xy # 900, 400
+class Angel:
+    def __init__(self,img,zoom,scr:Screen):
+        sfc = pg.image.load(img) 
+        self.sfc = pg.transform.rotozoom(sfc, 0, zoom) # 2.0
+        self.rct = self.sfc.get_rect()
+        self.rct.centerx = randint(0, scr.rct.width)
+        self.rct.centery = randint(0, scr.rct.height)
+
+    def blit(self, scr:Screen):
+        scr.sfc.blit(self.sfc, self.rct)
+    
+    def update(self,scr:Screen):
+        self.blit(scr)
 
 
 def check_bound(obj_rct, scr_rct):
@@ -98,6 +105,11 @@ def main():
     bkd = Bomb("fig/akuma.jpg", 0.5, (+1, +1), scr)
 
     clock = pg.time.Clock() # 練習1
+
+    a = False
+
+    ang = ""
+
     while True:
         scr.blit() # 練習2
         
@@ -108,12 +120,15 @@ def main():
                 for num in range(10):
                     if num+48 == event.key:
                         kkt = Bird(f"fig/{num}.png",2.0,kkt.rct.center)#こうかとんの設定
-            #if event.type == pg.KEYDOWN:
-                #ang = Angel("fig/tensi.png",0.5,scr)
-                #ang.update(scr)
-            
+            if event.type == pg.KEYDOWN:
+                key_states = pg.key.get_pressed()
+                if key_states[pg.K_SPACE] == True:
+                    a = True
+                    ang = Angel("fig/tensi.png",0.1,scr)
         
-        
+        if a==True:
+            ang.update(scr)
+                    
         # 練習4
         kkt.update(scr)
 
