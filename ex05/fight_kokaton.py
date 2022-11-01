@@ -3,15 +3,15 @@ import sys
 from random import randint
 
 class Screen:
-    def __init__(self, title, wh, bgimg):
+    def __init__(self,title,wh,bgimg):
         pg.display.set_caption(title) #逃げろ！こうかとん
-        self.sfc = pg.display.set_mode(wh) #(1600, 900)
-        self.rct = self.sfc.get_rect()
-        self.bgi_sfc = pg.image.load(bgimg) #"fig/pg_bg.jpg"
-        self.bgi_rct = self.bgi_sfc.get_rect()
+        self.sfc=pg.display.set_mode(wh) #(1600, 900)
+        self.rct=self.sfc.get_rect()
+        self.bgi_sfc=pg.image.load(bgimg) #"fig/pg_bg.jpg"
+        self.bgi_rct=self.bgi_sfc.get_rect()
         
     def blit(self):
-        self.sfc.blit(self.bgi_sfc, self.bgi_rct)
+        self.sfc.blit(self.bgi_sfc,self.bgi_rct)
 
 
 class Bird:
@@ -22,64 +22,64 @@ class Bird:
         pg.K_RIGHT: [+1, 0],
     }
 
-    def __init__(self, img, zoom, xy):
-        sfc = pg.image.load(img) # "fig/6.png"
-        self.sfc = pg.transform.rotozoom(sfc, 0, zoom) # 2.0
-        self.rct = self.sfc.get_rect()
-        self.rct.center = xy # 900, 400
+    def __init__(self,img,zoom,xy):
+        sfc=pg.image.load(img) # "fig/6.png"
+        self.sfc=pg.transform.rotozoom(sfc,0,zoom) # 2.0
+        self.rct=self.sfc.get_rect()
+        self.rct.center=xy # 900, 400
 
-    def blit(self, scr:Screen):
-        scr.sfc.blit(self.sfc, self.rct)
+    def blit(self,scr:Screen):
+        scr.sfc.blit(self.sfc,self.rct)
 
-    def update(self, scr:Screen):
-        key_states = pg.key.get_pressed()
-        for key, delta in Bird.key_delta.items():
+    def update(self,scr:Screen):
+        key_states=pg.key.get_pressed()
+        for key,delta in Bird.key_delta.items():
             if key_states[key]:
-                self.rct.centerx += delta[0]
-                self.rct.centery += delta[1]
+                self.rct.centerx+=delta[0]
+                self.rct.centery+=delta[1]
                 if check_bound(self.rct, scr.rct) != (+1, +1):
-                    self.rct.centerx -= delta[0]
-                    self.rct.centery -= delta[1]
+                    self.rct.centerx-=delta[0]
+                    self.rct.centery-=delta[1]
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct)
 
 
 class Bomb:
-    def __init__(self, img, zoom, vxy, scr:Screen):
-        self.sfc = pg.image.load(img) # 空のSurface
-        self.sfc.set_colorkey((255, 255, 255)) # 四隅の黒い部分を透過させる
-        self.sfc = pg.transform.rotozoom(self.sfc, 0, zoom) # 2.0
-        self.rct = self.sfc.get_rect()
-        self.rct.centerx = randint(0, scr.rct.width)
-        self.rct.centery = randint(0, scr.rct.height)
-        self.vx, self.vy = vxy
+    def __init__(self,img,zoom,vxy,scr:Screen):
+        self.sfc=pg.image.load(img) # 空のSurface
+        self.sfc.set_colorkey((255,255,255)) # 四隅の黒い部分を透過させる
+        self.sfc=pg.transform.rotozoom(self.sfc,0,zoom) # 2.0
+        self.rct=self.sfc.get_rect()
+        self.rct.centerx=randint(0, scr.rct.width)
+        self.rct.centery=randint(0, scr.rct.height)
+        self.vx, self.vy=vxy
 
-    def blit(self, scr:Screen):
-        scr.sfc.blit(self.sfc, self.rct)
+    def blit(self,scr:Screen):
+        scr.sfc.blit(self.sfc,self.rct)
 
-    def update(self, scr:Screen):
-        self.rct.move_ip(self.vx, self.vy)
-        yoko, tate = check_bound(self.rct, scr.rct)
-        self.vx *= yoko
-        self.vy *= tate
+    def update(self,scr:Screen):
+        self.rct.move_ip(self.vx,self.vy)
+        yoko,tate=check_bound(self.rct,scr.rct)
+        self.vx*=yoko
+        self.vy*=tate
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct)
 
 
 class Angel:
     def __init__(self,img,zoom,scr:Screen):
-        sfc = pg.image.load(img) 
-        self.sfc = pg.transform.rotozoom(sfc, 0, zoom) # 2.0
-        self.rct = self.sfc.get_rect()
-        self.rct.centerx = randint(0, scr.rct.width)
-        self.rct.centery = randint(0, scr.rct.height)
+        sfc=pg.image.load(img) 
+        self.sfc=pg.transform.rotozoom(sfc,0,zoom) # 2.0
+        self.rct=self.sfc.get_rect()
+        self.rct.centerx=randint(0,scr.rct.width)
+        self.rct.centery=randint(0,scr.rct.height)
 
-    def blit(self, scr:Screen):
-        scr.sfc.blit(self.sfc, self.rct)
+    def blit(self,scr:Screen):
+        scr.sfc.blit(self.sfc,self.rct)
     
     def update(self,scr:Screen):
         self.blit(scr)
 
 
-def check_bound(obj_rct, scr_rct):
+def check_bound(obj_rct,scr_rct):
     """
     obj_rct：こうかとんrct，または，爆弾rct
     scr_rct：スクリーンrct
